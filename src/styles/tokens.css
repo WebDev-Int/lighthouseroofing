@@ -1,0 +1,14 @@
+:root {
+  --navy: #0b1f33;
+  --blue: #1b6fa8;
+  --sky: #8cc7f4;
+  --sand: #f4e3c3;
+  --sun: #f7a600;
+  --white: #ffffff;
+  --ink: #0b1a26;
+  --muted: #5b6a7a;
+  --radius: 14px;
+  --shadow: 0 18px 40px rgba(7, 24, 43, 0.18);
+  --gradient: radial-gradient(circle at 20% 20%, rgba(140, 199, 244, 0.35), transparent 45%),
+    linear-gradient(135deg, rgba(27, 111, 168, 0.95), rgba(11, 31, 51, 0.95));
+}

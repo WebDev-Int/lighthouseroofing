@@ -1,0 +1,41 @@
+.btn {
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 700;
+  font-size: 14px;
+  border: 2px solid transparent;
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1); }
+.btn.solid { background: linear-gradient(135deg, #1b6fa8, #0b1f33); color: var(--white); }
+.btn.ghost { background: rgba(27, 111, 168, 0.08); color: var(--blue); border-color: rgba(27, 111, 168, 0.25); }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 18px;
+  border: 1px solid #e5edf5;
+  box-shadow: 0 10px 26px rgba(9, 30, 52, 0.08);
+}
+.card h3 { margin: 6px 0; }
+.card p { margin: 0; color: var(--muted); }
+
+.panel { background: #0b1f33; color: #e8f2ff; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
+.bullets { padding-left: 20px; margin: 8px 0 0; color: #c9d7e8; }
+.bullets li { margin-bottom: 8px; }
+
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+.steps li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
+.steps span { width: 32px; height: 32px; border-radius: 50%; background: var(--sun); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+.steps strong { display: block; margin-bottom: 4px; }
+.steps p { margin: 0; color: var(--muted); }
+
+.hero-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; color: #e9f2fc; }
+.hero-meta div { background: rgba(255, 255, 255, 0.08); padding: 12px; border-radius: var(--radius); border: 1px solid rgba(255, 255, 255, 0.15); }
+
+.checklist { list-style: none; padding: 0; margin: 12px 0 18px; }
+.checklist li { position: relative; padding-left: 20px; margin-bottom: 8px; }
+.checklist li::before { content: '✓'; position: absolute; left: 0; color: var(--sun); }
+
+.form-note { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
