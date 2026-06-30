@@ -39,3 +39,17 @@
 .checklist li::before { content: '✓'; position: absolute; left: 0; color: var(--sun); }
 
 .form-note { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+
+.review-section { margin-top: 48px; }
+.review-section .section-heading { margin-bottom: 24px; }
+.review-form-container { margin-top: 32px; }
+.review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.stars { color: var(--sun); font-size: 18px; letter-spacing: 2px; }
+.review-text { margin-bottom: 8px; line-height: 1.6; }
+.review-date { color: var(--muted); margin: 0; }
+.review-card { transition: transform 150ms ease, box-shadow 150ms ease; }
+.review-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(9, 30, 52, 0.12); }
+
+.footer a.admin-link { font-size: 13px; font-weight: 700; color: #ffffff !important; }
+.footer a.admin-link:hover { opacity: 0.8; }
+
