@@ -8,7 +8,7 @@ export function Footer() {
         <p>Licensed. Insured. Proudly serving homes and businesses.</p>
       </div>
       <div className="footer-links">
-        <Link to="/reviews">Reviews</Link>
+        <Link to="/reviews" className="btn-3d">Post a Review</Link>
         <Link to="/admin" className="admin-logo" title="Admin">
           <img src="/assets/logo.png" alt="Admin" className="admin-logo-img" />
         </Link>

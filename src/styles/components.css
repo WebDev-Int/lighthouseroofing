@@ -43,12 +43,14 @@
 .review-section { margin-top: 48px; }
 .review-section .section-heading { margin-bottom: 24px; }
 .review-form-container { margin-top: 32px; }
-.review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.stars { color: var(--sun); font-size: 18px; letter-spacing: 2px; }
-.review-text { margin-bottom: 8px; line-height: 1.6; }
-.review-date { color: var(--muted); margin: 0; }
-.review-card { transition: transform 150ms ease, box-shadow 150ms ease; }
-.review-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(9, 30, 52, 0.12); }
+.stars {
+  font-size: 18px;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #1b6fa8, #f7a600);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 .admin-logo { display: inline-flex; align-items: center; justify-content: center; }
 .admin-logo-img {
@@ -92,7 +94,12 @@
   transition: color 150ms ease, transform 150ms ease;
 }
 .star:hover { transform: scale(1.1); }
-.star.filled { color: var(--sun); }
+.star.filled {
+  background: linear-gradient(90deg, #1b6fa8, #f7a600);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 .star:focus { outline: 2px solid var(--blue); border-radius: 4px; }
 
 .service-areas {
@@ -107,4 +114,150 @@
 }
 .service-areas li { position: relative; padding-left: 14px; }
 .service-areas li::before { content: '✓'; position: absolute; left: 0; color: var(--sun); }
+
+.review-carousel {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.review-window {
+  overflow: hidden;
+  padding: 12px 0;
+}
+
+.review-track {
+  display: flex;
+  gap: 20px;
+  padding: 0 7.5%;
+  transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.review-slide {
+  flex: 0 0 85%;
+  box-sizing: border-box;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.review-slide[aria-hidden="true"] {
+  opacity: 0.5;
+  transform: scale(0.94);
+}
+
+.review-slide .review-card {
+  position: relative;
+  height: 100%;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(145deg, #ffffff 0%, #f7fbff 100%);
+  border: 1px solid #e5edf5;
+  border-left: 5px solid transparent;
+  border-radius: var(--radius);
+  box-shadow: 0 22px 50px rgba(7, 24, 43, 0.14), 0 8px 20px rgba(27, 111, 168, 0.08);
+  padding: 36px 32px;
+  overflow: hidden;
+}
+
+.review-slide .review-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--blue), var(--sun));
+}
+
+.review-quote {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  font-family: Georgia, serif;
+  font-size: 72px;
+  line-height: 1;
+  color: rgba(27, 111, 168, 0.12);
+  pointer-events: none;
+}
+
+.review-stars-row {
+  margin-bottom: 16px;
+}
+
+.review-text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0 0 24px;
+  flex: 1;
+}
+
+.review-footer {
+  border-top: 1px solid #e8f0f8;
+  padding-top: 16px;
+}
+
+.reviewer-name {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--blue);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.review-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.review-carousel-btn {
+  background: var(--white);
+  border: 1px solid #d6e2ef;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--blue);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(7, 24, 43, 0.08);
+  transition: background 150ms ease, color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.review-carousel-btn:hover {
+  background: var(--blue);
+  color: var(--white);
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(27, 111, 168, 0.25);
+}
+
+.review-carousel-dots {
+  display: flex;
+  gap: 10px;
+}
+
+.review-carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: #d6e2ef;
+  cursor: pointer;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.review-carousel-dot.active {
+  background: var(--blue);
+  transform: scale(1.2);
+}
+
+.review-carousel-dot:hover {
+  background: var(--sun);
+}
 

@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "name": "Jane Doe",
+    "rating": 5,
+    "text": "LightHouse Roofing did an excellent job replacing our roof. The crew was professional, cleaned up thoroughly, and finished ahead of schedule.",
+    "date": "2025-06-15",
+    "approved": true
+  }
+]
