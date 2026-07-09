@@ -11,13 +11,14 @@ export function ContactForm({ showServiceSelect = true }) {
     e.preventDefault();
     setStatus('Sending...');
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
 
     try {
       await submitLead(payload);
       setStatus('Thanks! We received your request and will respond shortly.');
-      e.currentTarget.reset();
+      form.reset();
     } catch (err) {
       console.error(err);
       setStatus(`We could not send your request online. ${FALLBACK_CONTACT}`);

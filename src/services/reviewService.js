@@ -15,9 +15,7 @@ export async function submitReview(payload) {
 
   if (!res.ok) throw new Error('Network response was not ok');
 
-  const data = await res.json();
-  if (!data.success) throw new Error(data.message || 'Something went wrong');
-  return data;
+  return res.json();
 }
 
 export async function saveReviews(reviews) {

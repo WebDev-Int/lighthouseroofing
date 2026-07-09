@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { StarRating } from './StarRating.jsx';
 import { submitReview } from '../services/reviewService.js';
 
 const IS_DEV = import.meta.env.DEV;
 
 export function ReviewForm() {
+  const navigate = useNavigate();
   const [rating, setRating] = useState(0);
   const [status, setStatus] = useState('');
 
@@ -16,22 +18,19 @@ export function ReviewForm() {
     }
     setStatus('Submitting...');
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
 
     try {
       if (IS_DEV) {
         await new Promise((resolve) => setTimeout(resolve, 500));
-        setStatus('Thank you for your review! (Dev mode - not saved)');
-        e.currentTarget.reset();
-        setRating(0);
+        navigate('/');
         return;
       }
 
       await submitReview(payload);
-      setStatus('Thank you for your review!');
-      e.currentTarget.reset();
-      setRating(0);
+      navigate('/');
     } catch (err) {
       console.error(err);
       setStatus('We could not submit your review. Please try again later.');
