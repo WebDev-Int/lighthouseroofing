@@ -67,6 +67,10 @@
 
   <style>
     .hidden { display: none !important; }
+    .logo {
+      max-height: 60px;
+      width: auto;
+    }
     .review-actions {
       display: flex;
       gap: 8px;
@@ -193,14 +197,7 @@
           const reviewIndex = reviews.findIndex(r => r.name === reviewToApprove.name && r.date === reviewToApprove.date);
           reviews[reviewIndex].approved = true;
 
-          // In dev mode, simulate the update
-          if (import.meta.env.DEV) {
-            console.log('Dev mode: Simulating approval', reviews);
-            await loadReviews();
-            return;
-          }
-
-          // In production, call the PHP endpoint
+          // Call the PHP endpoint
           const approveRes = await fetch(APPROVE_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -229,14 +226,7 @@
           const reviewIndex = reviews.findIndex(r => r.name === reviewToReject.name && r.date === reviewToReject.date);
           reviews.splice(reviewIndex, 1);
 
-          // In dev mode, simulate the update
-          if (import.meta.env.DEV) {
-            console.log('Dev mode: Simulating rejection', reviews);
-            await loadReviews();
-            return;
-          }
-
-          // In production, call the PHP endpoint
+          // Call the PHP endpoint
           const approveRes = await fetch(APPROVE_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -265,14 +255,7 @@
           const reviewIndex = reviews.findIndex(r => r.name === reviewToDelete.name && r.date === reviewToDelete.date);
           reviews.splice(reviewIndex, 1);
 
-          // In dev mode, simulate the update
-          if (import.meta.env.DEV) {
-            console.log('Dev mode: Simulating deletion', reviews);
-            await loadReviews();
-            return;
-          }
-
-          // In production, call the PHP endpoint
+          // Call the PHP endpoint
           const approveRes = await fetch(APPROVE_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -280,12 +263,19 @@
           });
 
           if (approveRes.ok) {
-            await loadReviews();
+            const result = await approveRes.json();
+            if (result.success) {
+              await loadReviews();
+            } else {
+              throw new Error(result.message || 'Failed to delete review');
+            }
+          } else {
+            throw new Error('Server error: ' + approveRes.status);
           }
         }
       } catch (err) {
         console.error('Error deleting review:', err);
-        alert('Failed to delete review');
+        alert('Failed to delete review: ' + err.message);
       }
     };
   </script>

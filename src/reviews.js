@@ -22,7 +22,8 @@ export async function initReviews({ listEl, formEl, statusEl, config = {} }) {
       const reviews = await fetchReviews(dataUrl);
       console.log('Reviews loaded:', reviews);
       // Only show approved reviews on public pages
-      const displayReviews = maxReviews ? reviews.slice(0, maxReviews) : reviews;
+      const approvedReviews = reviews.filter(r => r.approved);
+      const displayReviews = maxReviews ? approvedReviews.slice(0, maxReviews) : approvedReviews;
       renderReviews(listEl, displayReviews, config);
     } catch (err) {
       console.error('Error loading reviews:', err);

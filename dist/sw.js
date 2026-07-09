@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lighthouse-v1';
+const CACHE_NAME = 'lighthouse-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -29,7 +29,11 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(request.url);
   const isData = url.pathname.startsWith('/data/services.json');
+  const isReviews = url.pathname.startsWith('/data/reviews.json');
   const isStatic = STATIC_ASSETS.includes(url.pathname);
+
+  // Never cache reviews.json - always fetch fresh data
+  if (isReviews) return;
 
   if (isStatic || isData) {
     event.respondWith(cacheFirst(request));
