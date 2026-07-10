@@ -39,6 +39,17 @@ const sampleEmployees = [
     email: 'mike@lighthouseroofing.com',
     position: 'Siding Installer',
   },
+  {
+    id: 'emp4',
+    firstName: 'John',
+    middleName: 'Paul',
+    lastName: 'Cook',
+    dateOfEmployment: '2026-01-01',
+    customerContractsCompleted: 0,
+    phone: '(346) 679-3429',
+    email: 'cooksta120021@gmail.com',
+    position: 'Administrator',
+  },
 ];
 
 function getDevStore(resource) {
