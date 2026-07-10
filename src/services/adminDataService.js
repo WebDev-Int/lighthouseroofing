@@ -64,6 +64,22 @@ function seedEmployees() {
   }
 }
 
+function seedEmployeeContracts() {
+  const store = getDevStore('employee-contracts');
+  if (store.length === 0) {
+    const contracts = sampleEmployees.map((e) => ({
+      id: 'ec_' + e.id,
+      employeeId: e.id,
+      contractDate: e.dateOfEmployment,
+      notes: 'Mock contract for development testing',
+      file: '/uploads/employee-contracts/mock-contract.pdf',
+      createdAt: e.dateOfEmployment + 'T00:00:00',
+    }));
+    store.push(...contracts);
+    saveDevStore('employee-contracts', store);
+  }
+}
+
 function formDataToRecord(formData, existing = null) {
   const record = {};
   for (const [key, value] of formData.entries()) {
@@ -87,6 +103,10 @@ export async function fetchResource(resource) {
   if (IS_DEV) {
     await devDelay();
     if (resource === 'employees') seedEmployees();
+    if (resource === 'employee-contracts') {
+      seedEmployees();
+      seedEmployeeContracts();
+    }
     return { [resource]: getDevStore(resource) };
   }
 
