@@ -118,7 +118,7 @@ if (!isset($allowedResources[$resource])) {
 
 $config = $allowedResources[$resource];
 $dataPath = __DIR__ . '/../data/' . $resource . '.json';
-$uploadDir = __DIR__ . '/../public/uploads/' . $resource . '/';
+$uploadDir = __DIR__ . '/../uploads/' . $resource . '/';
 
 $records = loadRecords($dataPath);
 
