@@ -39,7 +39,7 @@ export function HomePage() {
   return (
     <>
       <Seo
-        title="Coastal Roofing & Remodeling Services"
+        title="LightHouse Roofing & Remodeling Services"
         description="LightHouse Roofing & Remodeling delivers coastal-strong roofing, gutters, and drainage services. 24/7 emergency response, clean job sites, and insurance guidance."
         path="/"
         jsonLd={homeJsonLd}
