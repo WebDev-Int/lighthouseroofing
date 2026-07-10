@@ -23,7 +23,6 @@ const employeeFields = [
     ],
   },
   { name: 'dateOfEmployment', label: 'Date of Employment', type: 'date', required: true },
-  { name: 'customerContractsCompleted', label: 'Customer Contracts Completed', type: 'number', required: true },
   { name: 'phone', label: 'Phone', type: 'tel' },
   { name: 'email', label: 'Email', type: 'email' },
   { name: 'position', label: 'Position' },

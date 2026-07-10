@@ -15,7 +15,7 @@ define('MAX_UPLOAD_BYTES', 10 * 1024 * 1024);
 
 $allowedResources = [
   'employees' => [
-    'fields' => ['firstName', 'middleName', 'lastName', 'role', 'dateOfEmployment', 'customerContractsCompleted', 'phone', 'email', 'position'],
+    'fields' => ['firstName', 'middleName', 'lastName', 'role', 'dateOfEmployment', 'phone', 'email', 'position'],
     'fileField' => 'file',
     'fileRequired' => false,
   ],
