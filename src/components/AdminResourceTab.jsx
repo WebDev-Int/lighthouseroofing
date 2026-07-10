@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useAdminResource } from '../hooks/useAdminResource.js';
+import { PhoneInput } from './PhoneInput.jsx';
 
 export function AdminResourceTab({ resource, title, description, fields, fileField, selectOptions = {} }) {
   const { items, loading, error, create, update, delete: remove } = useAdminResource(resource);
@@ -167,6 +168,13 @@ export function AdminResourceTab({ resource, title, description, fields, fileFie
                   value={formData[field.name] ?? ''}
                   onChange={(e) => handleChange(e, field)}
                   rows={3}
+                  required={field.required}
+                />
+              ) : field.type === 'tel' ? (
+                <PhoneInput
+                  name={field.name}
+                  value={formData[field.name] ?? ''}
+                  onChange={(e) => handleChange(e, field)}
                   required={field.required}
                 />
               ) : (

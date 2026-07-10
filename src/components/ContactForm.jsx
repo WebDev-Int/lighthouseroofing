@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useServices } from '../hooks/useServices.js';
 import { submitLead } from '../services/leadService.js';
 import { FALLBACK_CONTACT } from '../services/api.js';
+import { PhoneInput } from './PhoneInput.jsx';
 
 export function ContactForm({ showServiceSelect = true }) {
   const { services } = useServices();
   const [status, setStatus] = useState('');
+  const [phone, setPhone] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +21,7 @@ export function ContactForm({ showServiceSelect = true }) {
       await submitLead(payload);
       setStatus('Thanks! We received your request and will respond shortly.');
       form.reset();
+      setPhone('');
     } catch (err) {
       console.error(err);
       setStatus(`We could not send your request online. ${FALLBACK_CONTACT}`);
@@ -37,7 +40,13 @@ export function ContactForm({ showServiceSelect = true }) {
       </label>
       <label>
         Phone
-        <input name="phone" required placeholder="(832) 902-1620" />
+        <PhoneInput
+          name="phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+          placeholder="(832) 902-1620"
+        />
       </label>
       {showServiceSelect && (
         <label>
