@@ -81,6 +81,7 @@ function seedEmployeeContracts() {
     const contracts = sampleEmployees.map((e) => ({
       id: 'ec_' + e.id,
       employeeId: e.id,
+      documentType: 'Contract',
       contractDate: e.dateOfEmployment,
       notes: 'Mock contract for development testing',
       file: '/uploads/employee-contracts/mock-contract.pdf',

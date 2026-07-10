@@ -100,7 +100,7 @@ export function AdminResourceTab({ resource, title, description, fields, fileFie
         {description && <p className="lede">{description}</p>}
       </div>
 
-      <div className="cards" aria-live="polite">
+      <div className="cards admin-cards" aria-live="polite">
         {items.length === 0 ? (
           <p className="lede">No records yet.</p>
         ) : (

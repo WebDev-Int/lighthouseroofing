@@ -17,15 +17,11 @@ const employeeFile = { name: 'file', label: 'Employee Contract', required: false
 
 const customerContractFields = [
   { name: 'customerName', label: 'Customer Name', required: true },
-  { name: 'address', label: 'Address' },
-  { name: 'service', label: 'Service', required: true },
-  { name: 'contractDate', label: 'Contract Date', type: 'date', required: true },
-  { name: 'contractAmount', label: 'Contract Amount', type: 'number' },
+  { name: 'contractDate', label: 'Contract Date', type: 'date' },
   {
     name: 'status',
     label: 'Status',
     type: 'select',
-    required: true,
     options: [
       { value: 'Pending', label: 'Pending' },
       { value: 'Active', label: 'Active' },
@@ -36,14 +32,26 @@ const customerContractFields = [
   { name: 'employeeId', label: 'Assigned Employee', type: 'select' },
   { name: 'notes', label: 'Notes', type: 'textarea' },
 ];
-const customerContractFile = { name: 'file', label: 'Customer Contract File', required: false };
+const customerContractFile = { name: 'file', label: 'Customer Contract File', required: true };
 
 const employeeContractFields = [
   { name: 'employeeId', label: 'Employee', type: 'select', required: true },
-  { name: 'contractDate', label: 'Contract Date', type: 'date', required: true },
+  {
+    name: 'documentType',
+    label: 'Document Type',
+    type: 'select',
+    required: true,
+    options: [
+      { value: 'Contract', label: 'Contract' },
+      { value: 'W-2', label: 'W-2' },
+      { value: '1099', label: '1099' },
+      { value: 'Other', label: 'Other' },
+    ],
+  },
+  { name: 'contractDate', label: 'Document Date', type: 'date' },
   { name: 'notes', label: 'Notes', type: 'textarea' },
 ];
-const employeeContractFile = { name: 'file', label: 'Signed Employee Contract', required: true };
+const employeeContractFile = { name: 'file', label: 'Employee Document', required: true };
 
 export function AdminPanel({ onLogout }) {
   const [activeTab, setActiveTab] = useState('reviews');

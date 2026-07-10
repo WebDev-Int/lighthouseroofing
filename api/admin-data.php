@@ -20,12 +20,12 @@ $allowedResources = [
     'fileRequired' => false,
   ],
   'customer-contracts' => [
-    'fields' => ['customerName', 'address', 'service', 'contractDate', 'contractAmount', 'status', 'employeeId', 'notes'],
+    'fields' => ['customerName', 'contractDate', 'status', 'employeeId', 'notes'],
     'fileField' => 'file',
-    'fileRequired' => false,
+    'fileRequired' => true,
   ],
   'employee-contracts' => [
-    'fields' => ['employeeId', 'contractDate', 'notes'],
+    'fields' => ['employeeId', 'documentType', 'contractDate', 'notes'],
     'fileField' => 'file',
     'fileRequired' => true,
   ],
