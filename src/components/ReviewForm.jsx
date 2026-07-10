@@ -39,8 +39,11 @@ export function ReviewForm() {
 
   return (
     <div className="card review-form">
-      <p className="eyebrow">Leave a review</p>
-      <h3>Share your experience</h3>
+      <span className="review-form-quote" aria-hidden="true">“</span>
+      <div className="review-form-header">
+        <p className="eyebrow">Leave a review</p>
+        <h3>Share your experience</h3>
+      </div>
       <form id="review-form" onSubmit={handleSubmit}>
         <label>
           Your name
@@ -61,7 +64,7 @@ export function ReviewForm() {
             autoComplete="off"
           />
         </label>
-        <button type="submit" className="btn solid">Submit Review</button>
+        <button type="submit" className="btn solid review-form-submit">Submit Review</button>
         <p className="form-note" role="status">{status}</p>
       </form>
     </div>

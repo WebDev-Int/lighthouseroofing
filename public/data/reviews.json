@@ -5,5 +5,47 @@
     "text": "LightHouse Roofing did an excellent job replacing our roof. The crew was professional, cleaned up thoroughly, and finished ahead of schedule.",
     "date": "2025-06-15",
     "approved": true
+  },
+  {
+    "name": "Michael Torres",
+    "rating": 5,
+    "text": "They showed up the same day I called about a leak. Tarped the roof and had it repaired within 48 hours. Honest pricing and great communication.",
+    "date": "2025-05-22",
+    "approved": true
+  },
+  {
+    "name": "Susan Palmer",
+    "rating": 4,
+    "text": "Very happy with our new gutters. The team was respectful of my garden and left the driveway cleaner than they found it.",
+    "date": "2025-04-10",
+    "approved": true
+  },
+  {
+    "name": "David Kim",
+    "rating": 5,
+    "text": "After the hail storm, LightHouse handled everything from inspection to insurance paperwork. Made a stressful situation much easier.",
+    "date": "2025-03-28",
+    "approved": true
+  },
+  {
+    "name": "Angela Brooks",
+    "rating": 5,
+    "text": "Best roofing experience we've had in 20 years of homeownership. Quality materials, skilled crew, and they stuck to the quote.",
+    "date": "2025-02-14",
+    "approved": true
+  },
+  {
+    "name": "James Wilson",
+    "rating": 4,
+    "text": "Good work on the flat roof section of our office building. Project took a day longer than expected, but the result was solid.",
+    "date": "2025-01-30",
+    "approved": true
+  },
+  {
+    "name": "Rachel Nguyen",
+    "rating": 5,
+    "text": "The crew replaced our roof in a single day. They explained every step and even took photos to show us the work. Highly recommend!",
+    "date": "2024-12-08",
+    "approved": true
   }
 ]

@@ -1,16 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ReviewCard } from './ReviewCard.jsx';
 
 export function ReviewList({ reviews, emptyText = 'No reviews yet.' }) {
   const [active, setActive] = useState(0);
+  const timerRef = useRef(null);
 
   if (!reviews || reviews.length === 0) {
     return <p className="lede">{emptyText}</p>;
   }
-
-  const goTo = (index) => {
-    setActive(index);
-  };
 
   const goNext = () => {
     setActive((prev) => (prev + 1) % reviews.length);
@@ -20,16 +17,43 @@ export function ReviewList({ reviews, emptyText = 'No reviews yet.' }) {
     setActive((prev) => (prev - 1 + reviews.length) % reviews.length);
   };
 
+  const goTo = (index) => {
+    setActive(index);
+  };
+
+  useEffect(() => {
+    if (reviews.length <= 1) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+
+    timerRef.current = setInterval(() => {
+      setActive((prev) => (prev + 1) % reviews.length);
+    }, 5000);
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [reviews.length]);
+
   return (
-    <div className="review-carousel" aria-roledescription="carousel" aria-label="Customer reviews">
+    <div
+      className="review-carousel"
+      aria-roledescription="carousel"
+      aria-label="Customer reviews"
+    >
       <div className="review-window">
         <div
           className="review-track"
-          style={{ transform: `translateX(calc(-${active * 85}% - ${active * 20}px))` }}
+          style={{ transform: `translateX(-${active * 100}%)` }}
           aria-live="polite"
         >
           {reviews.map((review, i) => (
-            <div key={`${review.name}-${review.date}-${i}`} className="review-slide" aria-hidden={i !== active}>
+            <div
+              key={`${review.name}-${review.date}-${i}`}
+              className="review-slide"
+              aria-hidden={i !== active}
+            >
               <ReviewCard review={review} />
             </div>
           ))}
