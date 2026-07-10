@@ -1,81 +1,116 @@
-import { useReviews } from '../hooks/useReviews.js';
-import { saveReviews } from '../services/reviewService.js';
-import { AdminReviewCard } from './AdminReviewCard.jsx';
+import { useState } from 'react';
+import { useAdminResource } from '../hooks/useAdminResource.js';
+import { AdminResourceTab } from './AdminResourceTab.jsx';
+import { ReviewsTab } from './ReviewsTab.jsx';
 
-const IS_DEV = import.meta.env.DEV;
+const employeeFields = [
+  { name: 'firstName', label: 'First Name', required: true },
+  { name: 'middleName', label: 'Middle Name' },
+  { name: 'lastName', label: 'Last Name', required: true },
+  { name: 'dateOfEmployment', label: 'Date of Employment', type: 'date', required: true },
+  { name: 'customerContractsCompleted', label: 'Customer Contracts Completed', type: 'number', required: true },
+  { name: 'phone', label: 'Phone' },
+  { name: 'email', label: 'Email', type: 'email' },
+  { name: 'position', label: 'Position' },
+];
+const employeeFile = { name: 'file', label: 'Employee Contract (signed)', required: false };
+
+const customerContractFields = [
+  { name: 'customerName', label: 'Customer Name', required: true },
+  { name: 'address', label: 'Address' },
+  { name: 'service', label: 'Service', required: true },
+  { name: 'contractDate', label: 'Contract Date', type: 'date', required: true },
+  { name: 'contractAmount', label: 'Contract Amount', type: 'number' },
+  {
+    name: 'status',
+    label: 'Status',
+    type: 'select',
+    required: true,
+    options: [
+      { value: 'Pending', label: 'Pending' },
+      { value: 'Active', label: 'Active' },
+      { value: 'Completed', label: 'Completed' },
+      { value: 'Cancelled', label: 'Cancelled' },
+    ],
+  },
+  { name: 'employeeId', label: 'Assigned Employee', type: 'select' },
+  { name: 'notes', label: 'Notes', type: 'textarea' },
+];
+const customerContractFile = { name: 'file', label: 'Customer Contract File', required: false };
+
+const employeeContractFields = [
+  { name: 'employeeId', label: 'Employee', type: 'select', required: true },
+  { name: 'contractDate', label: 'Contract Date', type: 'date', required: true },
+  { name: 'notes', label: 'Notes', type: 'textarea' },
+];
+const employeeContractFile = { name: 'file', label: 'Signed Employee Contract', required: true };
 
 export function AdminPanel({ onLogout }) {
-  const { reviews, loading, error, refresh, setReviews } = useReviews();
-  const pending = reviews.filter((r) => !r.approved);
-  const approved = reviews.filter((r) => r.approved);
+  const [activeTab, setActiveTab] = useState('reviews');
+  const { items: employees } = useAdminResource('employees');
 
-  const handleAction = async (action, target) => {
-    const actionLabel = action === 'approve' ? 'Approve' : action === 'reject' ? 'Reject' : 'Delete';
-    const confirmMessage =
-      action === 'reject' ? `${actionLabel} this review? It will be deleted.` : `${actionLabel} this review?`;
-    if (!confirm(confirmMessage)) return;
+  const employeeOptions = employees.map((e) => ({
+    value: e.id,
+    label: `${e.firstName} ${e.lastName}`,
+  }));
 
-    let next = [...reviews];
-    if (action === 'approve') {
-      next = next.map((r) => (r === target ? { ...r, approved: true } : r));
-    } else {
-      next = next.filter((r) => r !== target);
-    }
-
-    try {
-      if (IS_DEV) {
-        await new Promise((resolve) => setTimeout(resolve, 300));
-      } else {
-        await saveReviews(next);
-      }
-      setReviews(next);
-    } catch (err) {
-      console.error(err);
-      alert('Failed to update review');
-      refresh();
-    }
-  };
-
-  if (loading) return <p className="lede">Loading reviews...</p>;
-  if (error) return <p className="lede">Could not load reviews.</p>;
+  const tabs = [
+    { id: 'reviews', label: 'Reviews' },
+    { id: 'employees', label: 'Employees' },
+    { id: 'customer-contracts', label: 'Customer Contracts' },
+    { id: 'employee-contracts', label: 'Employee Contracts' },
+  ];
 
   return (
     <div id="admin-panel">
-      <div className="section-heading">
-        <p className="eyebrow">Review Management</p>
-        <h2>Pending Reviews</h2>
-        <p className="lede">Approve or reject reviews before they appear on the site.</p>
-      </div>
-      <div className="cards" aria-live="polite">
-        {pending.length === 0 ? (
-          <p className="lede">No pending reviews.</p>
-        ) : (
-          pending.map((r, i) => (
-            <AdminReviewCard key={i} review={r} type="pending" onAction={handleAction} />
-          ))
-        )}
-      </div>
-
-      <div className="section-heading" style={{ marginTop: 48 }}>
-        <p className="eyebrow">Approved Reviews</p>
-        <h2>Live Reviews</h2>
-        <p className="lede">Reviews currently displayed on the website.</p>
-      </div>
-      <div className="cards" aria-live="polite">
-        {approved.length === 0 ? (
-          <p className="lede">No approved reviews.</p>
-        ) : (
-          approved.map((r, i) => (
-            <AdminReviewCard key={i} review={r} type="approved" onAction={handleAction} />
-          ))
-        )}
-      </div>
-
-      <div style={{ marginTop: 32 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+        <div className="admin-tabs">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`btn ${activeTab === tab.id ? 'solid' : 'ghost'}`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
         <button id="logout-btn" className="btn ghost" onClick={onLogout}>
           Logout
         </button>
       </div>
+
+      {activeTab === 'reviews' && <ReviewsTab />}
+      {activeTab === 'employees' && (
+        <AdminResourceTab
+          resource="employees"
+          title="Employees"
+          description="Manage employees and their signed employment contracts."
+          fields={employeeFields}
+          fileField={employeeFile}
+        />
+      )}
+      {activeTab === 'customer-contracts' && (
+        <AdminResourceTab
+          resource="customer-contracts"
+          title="Customer Contracts"
+          description="Track customer projects, contracts, and assigned employees."
+          fields={customerContractFields}
+          fileField={customerContractFile}
+          selectOptions={{ employeeId: employeeOptions }}
+        />
+      )}
+      {activeTab === 'employee-contracts' && (
+        <AdminResourceTab
+          resource="employee-contracts"
+          title="Employee Contracts"
+          description="Upload and manage signed employment contracts for each employee."
+          fields={employeeContractFields}
+          fileField={employeeContractFile}
+          selectOptions={{ employeeId: employeeOptions }}
+        />
+      )}
     </div>
   );
 }
+

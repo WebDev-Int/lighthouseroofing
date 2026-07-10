@@ -3,3 +3,11 @@ temp_mobile_uploads
 *.log
 .env
 .DS_Store
+
+public/uploads/employees/*
+!public/uploads/employees/.gitkeep
+public/uploads/customer-contracts/*
+!public/uploads/customer-contracts/.gitkeep
+public/uploads/employee-contracts/*
+!public/uploads/employee-contracts/.gitkeep
+dist/uploads/
