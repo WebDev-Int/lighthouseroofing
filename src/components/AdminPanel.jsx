@@ -13,6 +13,8 @@ const employeeFields = [
   { name: 'email', label: 'Email', type: 'email' },
   { name: 'position', label: 'Position' },
 ];
+const employeeFile = { name: 'file', label: 'Employee Contract', required: false };
+
 const customerContractFields = [
   { name: 'customerName', label: 'Customer Name', required: true },
   { name: 'address', label: 'Address' },
@@ -83,8 +85,9 @@ export function AdminPanel({ onLogout }) {
         <AdminResourceTab
           resource="employees"
           title="Employees"
-          description="Manage employees and assign them to contracts."
+          description="Manage employees, assign them to contracts, and upload their employment contracts."
           fields={employeeFields}
+          fileField={employeeFile}
         />
       )}
       {activeTab === 'customer-contracts' && (
