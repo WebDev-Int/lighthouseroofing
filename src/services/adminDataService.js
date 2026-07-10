@@ -195,6 +195,31 @@ export async function updateResource(resource, id, formData) {
   return data;
 }
 
+export async function sendFiles({ to, subject, message, files }) {
+  if (IS_DEV) {
+    await devDelay();
+    console.log('[DEV] Would email files:', { to, subject, message, files });
+    return { success: true, message: 'Dev mode - email not sent' };
+  }
+
+  const formData = new FormData();
+  formData.append('to', to);
+  formData.append('subject', subject);
+  formData.append('message', message);
+  files.forEach((file) => formData.append('files[]', file));
+  formData.append('password', ADMIN_PASSWORD);
+
+  const res = await fetch('/api/send-files.php', {
+    method: 'POST',
+    body: formData,
+  });
+  if (!res.ok) throw new Error('Network response was not ok');
+
+  const data = await res.json();
+  if (!data.success) throw new Error(data.message || 'Failed to send email');
+  return data;
+}
+
 export async function deleteResource(resource, id) {
   if (IS_DEV) {
     await devDelay();

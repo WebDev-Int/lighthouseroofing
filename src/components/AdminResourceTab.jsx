@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useAdminResource } from '../hooks/useAdminResource.js';
+import { sendFiles } from '../services/adminDataService.js';
 import { PhoneInput } from './PhoneInput.jsx';
 
 export function AdminResourceTab({ resource, title, description, fields, fileField, selectOptions = {} }) {
@@ -8,6 +9,10 @@ export function AdminResourceTab({ resource, title, description, fields, fileFie
   const [formData, setFormData] = useState({});
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState('');
+
+  const [emailingId, setEmailingId] = useState(null);
+  const [emailForm, setEmailForm] = useState({ to: '', subject: '', message: '' });
+  const [emailStatus, setEmailStatus] = useState('');
 
   const emptyForm = useMemo(() => {
     const obj = {};
@@ -84,6 +89,39 @@ export function AdminResourceTab({ resource, title, description, fields, fileFie
     }
   };
 
+  const startEmail = (item) => {
+    setEmailingId(item.id);
+    setEmailForm({
+      to: '',
+      subject: `${title} document`,
+      message: 'Please find the attached document.',
+    });
+    setEmailStatus('');
+  };
+
+  const cancelEmail = () => {
+    setEmailingId(null);
+    setEmailStatus('');
+  };
+
+  const handleEmailChange = (e) => {
+    const { name, value } = e.target;
+    setEmailForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSendEmail = async (e, item) => {
+    e.preventDefault();
+    if (!item.file) return;
+    setEmailStatus('Sending...');
+    try {
+      await sendFiles({ ...emailForm, files: [item.file] });
+      setEmailStatus('Sent successfully.');
+    } catch (err) {
+      console.error(err);
+      setEmailStatus('Error: ' + err.message);
+    }
+  };
+
   const getOptions = (field) => {
     if (selectOptions[field.name]) return selectOptions[field.name];
     return field.options || [];
@@ -134,10 +172,60 @@ export function AdminResourceTab({ resource, title, description, fields, fileFie
                 <button className="btn approve" onClick={() => startEdit(item)}>
                   Edit
                 </button>
+                {item.file && (
+                  <button className="btn ghost" onClick={() => startEmail(item)}>
+                    Email
+                  </button>
+                )}
                 <button className="btn delete" onClick={() => handleDelete(item.id)}>
                   Delete
                 </button>
               </div>
+              {emailingId === item.id && (
+                <form className="admin-form" onSubmit={(e) => handleSendEmail(e, item)} style={{ marginTop: 12 }}>
+                  <label>
+                    Recipient email
+                    <input
+                      type="email"
+                      name="to"
+                      value={emailForm.to}
+                      onChange={handleEmailChange}
+                      required
+                      placeholder="client@example.com"
+                    />
+                  </label>
+                  <label>
+                    Subject
+                    <input
+                      type="text"
+                      name="subject"
+                      value={emailForm.subject}
+                      onChange={handleEmailChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Message
+                    <textarea
+                      name="message"
+                      value={emailForm.message}
+                      onChange={handleEmailChange}
+                      rows={3}
+                    />
+                  </label>
+                  <div className="review-actions">
+                    <button type="submit" className="btn solid">
+                      Send
+                    </button>
+                    <button type="button" className="btn ghost" onClick={cancelEmail}>
+                      Cancel
+                    </button>
+                  </div>
+                  <p className="form-note" role="status">
+                    {emailStatus}
+                  </p>
+                </form>
+              )}
             </article>
           ))
         )}
