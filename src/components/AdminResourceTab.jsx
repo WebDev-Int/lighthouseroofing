@@ -121,7 +121,7 @@ export function AdminResourceTab({ resource, title, description, fields, fileFie
                   )}
                 </div>
               ))}
-              {item.file && (
+              {item.file && fileField && (
                 <div style={{ marginBottom: 6 }}>
                   <strong>{fileField.label}:</strong>{' '}
                   <a href={item.file} target="_blank" rel="noreferrer">
