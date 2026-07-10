@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useAdminResource } from '../hooks/useAdminResource.js';
 import { AdminResourceTab } from './AdminResourceTab.jsx';
 import { ReviewsTab } from './ReviewsTab.jsx';
 
@@ -16,51 +15,17 @@ const employeeFields = [
 const employeeFile = { name: 'file', label: 'Employee Contract', required: false };
 
 const customerContractFields = [
-  { name: 'customerName', label: 'Customer Name', required: true },
-  { name: 'contractDate', label: 'Contract Date', type: 'date' },
-  {
-    name: 'status',
-    label: 'Status',
-    type: 'select',
-    options: [
-      { value: 'Pending', label: 'Pending' },
-      { value: 'Active', label: 'Active' },
-      { value: 'Completed', label: 'Completed' },
-      { value: 'Cancelled', label: 'Cancelled' },
-    ],
-  },
-  { name: 'employeeId', label: 'Assigned Employee', type: 'select' },
   { name: 'notes', label: 'Notes', type: 'textarea' },
 ];
 const customerContractFile = { name: 'file', label: 'Customer Contract File', required: true };
 
 const employeeContractFields = [
-  { name: 'employeeId', label: 'Employee', type: 'select', required: true },
-  {
-    name: 'documentType',
-    label: 'Document Type',
-    type: 'select',
-    required: true,
-    options: [
-      { value: 'Contract', label: 'Contract' },
-      { value: 'W-2', label: 'W-2' },
-      { value: '1099', label: '1099' },
-      { value: 'Other', label: 'Other' },
-    ],
-  },
-  { name: 'contractDate', label: 'Document Date', type: 'date' },
   { name: 'notes', label: 'Notes', type: 'textarea' },
 ];
 const employeeContractFile = { name: 'file', label: 'Employee Document', required: true };
 
 export function AdminPanel({ onLogout }) {
   const [activeTab, setActiveTab] = useState('reviews');
-  const { items: employees } = useAdminResource('employees');
-
-  const employeeOptions = employees.map((e) => ({
-    value: e.id,
-    label: `${e.firstName} ${e.lastName}`,
-  }));
 
   const tabs = [
     { id: 'reviews', label: 'Reviews' },
@@ -102,20 +67,18 @@ export function AdminPanel({ onLogout }) {
         <AdminResourceTab
           resource="customer-contracts"
           title="Customer Contracts"
-          description="Track customer projects, contracts, and assigned employees."
+          description="Hub for all uploaded customer contracts and related files."
           fields={customerContractFields}
           fileField={customerContractFile}
-          selectOptions={{ employeeId: employeeOptions }}
         />
       )}
       {activeTab === 'employee-contracts' && (
         <AdminResourceTab
           resource="employee-contracts"
-          title="Employee Contracts"
-          description="Upload and manage signed employment contracts for each employee."
+          title="Employee Documents"
+          description="Hub for employee files such as blank W-2s, 1099s, and contracts."
           fields={employeeContractFields}
           fileField={employeeContractFile}
-          selectOptions={{ employeeId: employeeOptions }}
         />
       )}
     </div>

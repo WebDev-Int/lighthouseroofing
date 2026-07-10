@@ -78,17 +78,26 @@ function seedEmployees() {
 function seedEmployeeContracts() {
   const store = getDevStore('employee-contracts');
   if (store.length === 0) {
-    const contracts = sampleEmployees.map((e) => ({
-      id: 'ec_' + e.id,
-      employeeId: e.id,
-      documentType: 'Contract',
-      contractDate: e.dateOfEmployment,
-      notes: 'Mock contract for development testing',
+    store.push({
+      id: 'ec_sample',
+      notes: 'Mock employee document for development testing',
       file: '/uploads/employee-contracts/mock-contract.pdf',
-      createdAt: e.dateOfEmployment + 'T00:00:00',
-    }));
-    store.push(...contracts);
+      createdAt: new Date().toISOString(),
+    });
     saveDevStore('employee-contracts', store);
+  }
+}
+
+function seedCustomerContracts() {
+  const store = getDevStore('customer-contracts');
+  if (store.length === 0) {
+    store.push({
+      id: 'cc_sample',
+      notes: 'Mock customer contract for development testing',
+      file: '/uploads/customer-contracts/mock-contract.pdf',
+      createdAt: new Date().toISOString(),
+    });
+    saveDevStore('customer-contracts', store);
   }
 }
 
@@ -119,6 +128,7 @@ export async function fetchResource(resource) {
       seedEmployees();
       seedEmployeeContracts();
     }
+    if (resource === 'customer-contracts') seedCustomerContracts();
     return { [resource]: getDevStore(resource) };
   }
 
