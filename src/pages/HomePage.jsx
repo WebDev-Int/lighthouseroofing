@@ -50,7 +50,7 @@ export function HomePage() {
         description="From shingle repair to full exterior makeovers, we protect your home with precision, clean job sites, and clear communication."
         card={
           <>
-            <p className="eyebrow">Featured Exterior</p>
+            <p className="eyebrow gold-gradient">Featured Exterior</p>
             <h3>Atlantic ridge roof refresh</h3>
             <p>
               High-wind shingle system, ice & water shield, gutter upgrades, and soffit

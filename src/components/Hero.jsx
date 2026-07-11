@@ -2,7 +2,7 @@ export function Hero({ eyebrow, title, description, children, card }) {
   return (
     <section className="hero">
       <div className="hero-content">
-        {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+        {eyebrow && <p className="eyebrow gold-gradient">{eyebrow}</p>}
         {title && <h2>{title}</h2>}
         {description && <p className="lede">{description}</p>}
         {children}

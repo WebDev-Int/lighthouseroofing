@@ -17,3 +17,10 @@ a { color: inherit; text-decoration: none; }
   color: var(--blue);
   margin: 0 0 6px;
 }
+
+.gold-gradient {
+  background: linear-gradient(90deg, #f7a600, #ffffff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
