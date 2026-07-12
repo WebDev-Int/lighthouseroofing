@@ -17,7 +17,7 @@ export function ContactPage() {
         description="Fast response for storm damage and leaks. Tell us about your project and timing."
         card={
           <>
-            <p className="eyebrow">Direct contact</p>
+            <p className="eyebrow gold-gradient">Direct contact</p>
             <h3>Storm & leak hotline</h3>
             <p>
               <strong>Call / Text:</strong> (832) 902-1620

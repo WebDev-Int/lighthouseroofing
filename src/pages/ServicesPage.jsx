@@ -22,7 +22,7 @@ export function ServicesPage() {
         description="Expert roof replacement, repair, and gutter systems to protect your home from water damage."
         card={
           <>
-            <p className="eyebrow">Highlights</p>
+            <p className="eyebrow gold-gradient">Highlights</p>
             <h3>Certified crews & clean sites</h3>
             <ul className="checklist">
               <li>Manufacturer-approved installs</li>
